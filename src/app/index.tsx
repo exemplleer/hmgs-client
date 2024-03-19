@@ -1,12 +1,10 @@
 import '@/shared/styles/global.css';
-import { BaseLayout } from '@/shared/ui/layouts';
-import { RoomList } from '@/widgets/room-list/ui';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
 
 function App() {
   return (
-    <BaseLayout>
-      <RoomList></RoomList>
-    </BaseLayout>
+    <RouterProvider router={router()} />
   );
 }
 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button, Space, Table, TableColumnsType } from 'antd';
 import { IRoom } from '@/entities/room/model/interfaces';
-import { AddRoomModal, EditRoomModal } from '@/entities/room/ui';
+import { AddRoomModal } from '@/features/add-room-modal';
+import { EditRoomModal } from '@/features/edit-room-modal';
 import { getRooms } from '@/entities/room/api';
 import { showError } from '@/shared/lib';
 
@@ -42,17 +43,17 @@ export const RoomList = () => {
     },
   ];
 
-  function handleEdit(room: IRoom) {
-    setSelectedRoomId(room.id);
-    setIsOpenEditRoomModal(true);
-    console.log(room);
-  }
-
   const [rooms, setRooms] = useState<IRoom[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpenCrateRoomModal, setIsOpenCrateRoomModal] = useState(false);
   const [isOpenEditRoomModal, setIsOpenEditRoomModal] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState<number>();
+
+  function handleEdit(room: IRoom) {
+    setSelectedRoomId(room.id);
+    setIsOpenEditRoomModal(true);
+    console.log(room);
+  }
 
   const fetchData = async (): Promise<void> => {
     try {
@@ -74,22 +75,19 @@ export const RoomList = () => {
 
   return (
     <>
-      <Space size="middle" direction="vertical" style={{ width: '100%' }}>
-        <h2 style={{ margin: 0 }}>Список всех гостиничных номеров </h2>
-        <Space size="small" wrap>
-          <Button onClick={refreshHandle}>Обновить список</Button>
-          <Button onClick={() => setIsOpenCrateRoomModal(true)}>Добавить новый номер</Button>
-        </Space>
-        <Table
-          bordered
-          columns={columns}
-          loading={isLoading}
-          dataSource={rooms.map((room) => ({ ...room, key: room.num }))}
-          scroll={{ x: true }}
-          size="middle"
-          pagination={false}
-        />
+      <Space size="small" wrap>
+        <Button onClick={refreshHandle}>Обновить список</Button>
+        <Button onClick={() => setIsOpenCrateRoomModal(true)}>Добавить новый номер</Button>
       </Space>
+      <Table
+        bordered
+        columns={columns}
+        loading={isLoading}
+        dataSource={rooms.map((room) => ({ ...room, key: room.num }))}
+        scroll={{ x: true }}
+        size="middle"
+        pagination={false}
+      />
 
       {/* Modals */}
       <AddRoomModal isOpen={isOpenCrateRoomModal} setIsOpen={setIsOpenCrateRoomModal} />

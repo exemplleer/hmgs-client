@@ -1,9 +1,9 @@
-import { navbarLinks } from '@/shared/lib';
+import { navLinks } from '@/shared/lib';
 import { Layout, Menu, theme } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 const { Header, Content } = Layout;
 
-export const BaseLayout = ({ children }) => {
+export const BaseLayout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -15,7 +15,7 @@ export const BaseLayout = ({ children }) => {
           theme="dark"
           mode="horizontal"
           selectedKeys={[location.pathname]}
-          items={navbarLinks.map((link) => ({
+          items={navLinks.map((link) => ({
             label: link.text,
             key: link.url,
           }))}
@@ -31,7 +31,7 @@ export const BaseLayout = ({ children }) => {
           borderRadius: borderRadiusLG,
         }}
       >
-        {children}
+        <Outlet />
       </Content>
     </Layout>
   );

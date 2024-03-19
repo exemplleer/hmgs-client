@@ -1,4 +1,4 @@
-export const navbarLinks = [
-  { text: 'Номера', url: '/' },
-  { text: 'Бронирования', url: '/booking' },
+export const navLinks = [
+  { text: 'Номера', url: '/root/rooms' },
+  { text: 'Бронирования', url: '/root/booking' },
 ];
